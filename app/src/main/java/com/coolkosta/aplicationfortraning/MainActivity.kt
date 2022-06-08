@@ -1,42 +1,49 @@
 package com.coolkosta.aplicationfortraning
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.random.Random
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 private const val KEY = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var button: Button
-    private lateinit var textView: TextView
+    /* инициализируем в Activity RecyclerView */
+    private lateinit var usersRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button = findViewById(R.id.button_view)
-        textView = findViewById(R.id.numbers_text_view)
+        val uerList: List<User> = listOf(User("Иван", 6),
+            User("Николай", 45),
+            User("Георгий", 34),
+            User("Игорь", 21),
+            User("Савелий", 30),
+            User("Егор", 67),
+            User("Константин", 55),
+            User("Александр", 76),
+            User("Михаил", 15),
+            User("Артем", 87),
+            User("Максим", 28),
+            User("Егор", 67),
+            User("Константин", 55),
+            User("Александр", 76),
+            User("Михаил", 15),
+            User("Артем", 87),
+            User("Максим", 28)
+        )
 
-        if(savedInstanceState != null) {
-            textView.text = savedInstanceState.getString(KEY)
-        }
 
-        button.setOnClickListener {
-            randomNumbers()
-        }
+        /* настраиваем RecyclerView
+        1. ищем по id необходимый RecyclerView
+        2. задаем RecyclerView параметры layOutManager-а путем настраивания отображения view
+        3. После создания ViewHolder-а и Adapter-а, присваеваем для RecyclerView Adapter */
+        usersRecyclerView = findViewById(R.id.user_recycler_view) // 1.
+        usersRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) // 2.
+        usersRecyclerView.adapter = UserAdapter(uerList) // 3.
+
     }
-
-    private fun randomNumbers() {
-        textView.text = Random.nextInt(999).toString()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY, textView.text.toString())
-    }
-
-
 }
