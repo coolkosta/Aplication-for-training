@@ -1,52 +1,45 @@
 package com.coolkosta.aplicationfortraning
 
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.coolkosta.aplicationfortraning.databinding.ActivityMainBinding
-import kotlinx.parcelize.Parcelize
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var state: State
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         binding.button.text = getString(R.string.tap)
-        binding.button.setOnClickListener { tapped() }
+        binding.button.setOnClickListener { viewModel.tapped() }
 
-        state = savedInstanceState?.getParcelable(KEY) ?: State(
-            0,
-            text = "tap on button"
+        viewModel.initState(
+            savedInstanceState?.getParcelable(KEY) ?: MainActivityViewModel.State(
+                count = 0,
+                text = "tap on the button"
+            )
         )
-        render()
 
+        viewModel.stateLiveData.observe(this, Observer{ render(it) } )
 
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(KEY, state)
+        outState.putParcelable(KEY, viewModel.stateLiveData.value)
     }
 
 
-    private fun render() = with(binding) {
+    private fun render(state: MainActivityViewModel.State) = with(binding) {
         textView.text = state.text
     }
-
-
-    private fun tapped() {
-        state.count++
-        state.text = "U tapped on button ${state.count} times"
-        render()
-    }
-
-    @Parcelize
-    data class State(var count: Int, var text: String) : Parcelable
 
     companion object {
         @JvmStatic
