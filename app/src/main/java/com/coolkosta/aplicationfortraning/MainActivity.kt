@@ -10,13 +10,15 @@ import com.coolkosta.aplicationfortraning.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel: MainActivityViewModel by lazy {
+        ViewModelProvider(this)[MainActivityViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+
         binding.button.text = getString(R.string.tap)
         binding.button.setOnClickListener { viewModel.tapped() }
 
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        viewModel.stateLiveData.observe(this, Observer{ render(it) } )
+        viewModel.stateLiveData.observe(this, Observer { render(it) })
 
     }
 
