@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">AplicationForTraning</string>
     <string name="tap">Tap</string>
+    <string name="open_box">open box</string>
+    <string name="options">options</string>
+    <string name="about">about</string>
+    <string name="exit">exit</string>
+    <string name="name_application">Name Application:</string>
+    <string name="version_name">Version Name:</string>
+    <string name="version_code">Version Code:</string>
+    <string name="ok">okay</string>
+    <string name="about_activity_name">About</string>
 </resources>
