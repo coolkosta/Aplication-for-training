@@ -10,4 +10,8 @@
     <string name="version_code">Version Code:</string>
     <string name="ok">okay</string>
     <string name="about_activity_name">About</string>
+    <string name="choose_number_text">Укажи число</string>
+    <string name="save">save</string>
+    <string name="activity_options">Options</string>
+
 </resources>
