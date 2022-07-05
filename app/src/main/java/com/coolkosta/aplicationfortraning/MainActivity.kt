@@ -13,13 +13,14 @@ import com.coolkosta.aplicationfortraning.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var text: Text
+    private lateinit var text: String
+
 
     private val editTextLauncher =
         registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
-                text = result.data?.getParcelableExtra(SecondActivity.EXTRA_OPTIONS)!!
-                binding.fieldTextView.text = text.message
+                text = result.data?.getStringExtra(SecondActivity.EXTRA_OPTIONS)!!
+                binding.fieldTextView.text = text
             } else {
                 Toast.makeText(this, "Текст не сохранен", Toast.LENGTH_SHORT).show()
             }
@@ -28,14 +29,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        text = savedInstanceState?.getParcelable(TEXT_OPTIONS) ?: Text.DEFAULT
-        binding.fieldTextView.text = text.message
+        text = savedInstanceState?.getString(TEXT_OPTIONS) ?: TEXT
+        binding.fieldTextView.text = text
         binding.changeButton.setOnClickListener { onChangeButtonClicked() }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(TEXT_OPTIONS, text)
+        outState.putString(TEXT_OPTIONS, text)
     }
 
     private fun onChangeButtonClicked() {
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TEXT_OPTIONS = "TEXT_OPTIONS"
+        private const val TEXT = "Change text in next Activity"
     }
 }
 

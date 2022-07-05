@@ -9,21 +9,21 @@ import com.coolkosta.aplicationfortraning.databinding.ActivitySecondBinding
 class SecondActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySecondBinding
-    private lateinit var text: Text
+    private lateinit var text: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        text = intent.getParcelableExtra(EXTRA_OPTIONS)!!
-        binding.fieldEditText.setText(text.message)
+        text = intent.getStringExtra(EXTRA_OPTIONS)!!
+        binding.fieldEditText.setText(text)
         binding.saveButton.setOnClickListener { onSavedPressed() }
     }
 
     private fun onSavedPressed() {
         val editText = binding.fieldEditText.text.toString()
-        text = text.copy(message = editText)
         val intent = Intent()
-        intent.putExtra(EXTRA_OPTIONS, text)
+        intent.putExtra(EXTRA_OPTIONS, editText)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
