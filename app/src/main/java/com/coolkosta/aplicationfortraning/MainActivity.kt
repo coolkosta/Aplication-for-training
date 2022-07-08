@@ -3,6 +3,7 @@ package com.coolkosta.aplicationfortraning
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.coolkosta.aplicationfortraning.data.Options
 import com.coolkosta.aplicationfortraning.databinding.ActivityMainBinding
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == OPTIONS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             options = data?.getParcelableExtra(OptionsActivity.EXTRA_OPTIONS)
                 ?: throw IllegalArgumentException("Can't get update data from OptionsActivity")
-        }
+        } else Toast.makeText(this, "Число не сохранено", Toast.LENGTH_SHORT).show()
     }
 
     private fun onOpenBoxPressed() {

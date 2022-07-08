@@ -30,7 +30,6 @@ class OptionsActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_OPTIONS, options)
-
     }
 
     private fun onSavedPressed() {
@@ -40,8 +39,12 @@ class OptionsActivity : BaseActivity() {
         intent.putExtra(EXTRA_OPTIONS, options)
         setResult(Activity.RESULT_OK, intent)
         finish()
+    }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(Activity.RESULT_CANCELED)
+        finish()
     }
 
     companion object {
