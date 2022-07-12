@@ -26,6 +26,10 @@
             android:name=".TwoFragmentsActivity"
             android:label="Two Fragments Activity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".UnlimitedFragmentActivity"
+            android:label="Unlimited Fragment"
+            android:parentActivityName=".MainActivity" />
 
     </application>
 

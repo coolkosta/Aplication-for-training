@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity() {
         binding.buttonForNewActivityWithTwoFragment.setOnClickListener {
             startNewActivity(TwoFragmentsActivity::class.java)
         }
+        binding.buttonForNewActivityWithUnlimitedFrgment.setOnClickListener {
+            startNewActivity(UnlimitedFragmentActivity::class.java)
+        }
     }
 
     private fun startNewActivity(cls: Class<*>) {
